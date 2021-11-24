@@ -1,0 +1,14 @@
+[
+    {
+        "name": "One on One Session",
+        "icon": "fas fa-people-arrows"
+    },
+    {
+        "name": "QA Caliberation Session",
+        "icon": "fab fa-chromecast"
+    },
+    {
+        "name": "Mass Training Session",
+        "icon": "fas fa-chalkboard"
+    }
+]
