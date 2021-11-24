@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 use Illuminate\Support\Facades\Route;
 
@@ -26,23 +26,26 @@ use App\Http\Controllers\Populates\AllowedCampaignController;
 
 
 
-/* Route::middleware('auth')->get('/', function () {
+Route::middleware('auth')->get('/', function () {
     return view('welcome');
-}); */
-// secured routes
-/* Route::middleware('auth')->group(function () { */
+});
 
-    Route::prefix('allowed-campaigns')/* ->middleware('admin') */->group(function () {
+
+// secured routes
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::prefix('allowed-campaigns')->middleware('admin')->group(function () {
         Route::get('/', [AllowedCampaignController::class, 'index'])->name('allowed-campaigns.index');
         Route::get('/create', [AllowedCampaignController::class, 'create'])->name('allowed-campaigns.create');
         Route::post('/create', [AllowedCampaignController::class, 'store'])->name('allowed-campaigns.store');
-        /* 
         Route::get('/edit/{id}', [AllowedCampaignController::class, 'edit'])->name('allowed-campaigns.edit');
         Route::post('/edit/{id}', [AllowedCampaignController::class, 'update'])->name('allowed-campaigns.update');
         Route::get('/delete/{id}', [AllowedCampaignController::class, 'destroy'])->name('allowed-campaigns.destroy');
-        Route::get('/restore/{id}', [AllowedCampaignController::class, 'restore'])->name('allowed-campaigns.restore'); */
+        Route::get('/restore/{id}', [AllowedCampaignController::class, 'restore'])->name('allowed-campaigns.restore');
     });
-    Route::prefix('campaigns')/* ->middleware('admin') */->group(function () {
+
+
+    Route::prefix('campaigns')->middleware('admin')->group(function () {
         Route::get('/', [CampaignController::class, 'index'])->name('campaigns.index');
         Route::get('/create', [CampaignController::class, 'create'])->name('campaigns.create');
         Route::post('/create', [CampaignController::class, 'store'])->name('campaigns.store');
@@ -51,16 +54,8 @@ use App\Http\Controllers\Populates\AllowedCampaignController;
         Route::get('/delete/{id}', [CampaignController::class, 'destroy'])->name('campaigns.destroy');
         Route::get('/restore/{id}', [CampaignController::class, 'restore'])->name('campaigns.restore');
     });
-    Route::prefix('meeting-types')/* ->middleware('admin') */->group(function () {
-        Route::get('/', [MeetingTypeController::class, 'index'])->name('meeting-types.index');
-        Route::get('/create', [MeetingTypeController::class, 'create'])->name('meeting-types.create');
-        Route::post('/create', [MeetingTypeController::class, 'store'])->name('meeting-types.store');
-        Route::get('/edit/{id}', [MeetingTypeController::class, 'edit'])->name('meeting-types.edit');
-        Route::post('/edit/{id}', [MeetingTypeController::class, 'update'])->name('meeting-types.update');
-        Route::get('/delete/{id}', [MeetingTypeController::class, 'destroy'])->name('meeting-types.destroy');
-        Route::get('/restore/{id}', [MeetingTypeController::class, 'restore'])->name('meeting-types.restore');
-    });
-    Route::prefix('reasons')/* ->middleware('admin') */->group(function () {
+
+    Route::prefix('reasons')->middleware('admin')->group(function () {
         Route::get('/', [ReasonController::class, 'index'])->name('reasons.index');
         Route::get('/create', [ReasonController::class, 'create'])->name('reasons.create');
         Route::post('/create', [ReasonController::class, 'store'])->name('reasons.store');
@@ -69,6 +64,29 @@ use App\Http\Controllers\Populates\AllowedCampaignController;
         Route::get('/delete/{id}', [ReasonController::class, 'destroy'])->name('reasons.destroy');
         Route::get('/restore/{id}', [ReasonController::class, 'restore'])->name('reasons.restore');
     });
+
+
+
+    Route::prefix('meeting-types')->middleware('admin')->group(function () {
+        Route::get('/', [MeetingTypeController::class, 'index'])->name('meeting-types.index');
+        Route::get('/create', [MeetingTypeController::class, 'create'])->name('meeting-types.create');
+        Route::post('/create', [MeetingTypeController::class, 'store'])->name('meeting-types.store');
+        Route::get('/edit/{id}', [MeetingTypeController::class, 'edit'])->name('meeting-types.edit');
+        Route::post('/edit/{id}', [MeetingTypeController::class, 'update'])->name('meeting-types.update');
+        Route::get('/delete/{id}', [MeetingTypeController::class, 'destroy'])->name('meeting-types.destroy');
+        Route::get('/restore/{id}', [MeetingTypeController::class, 'restore'])->name('meeting-types.restore');
+    });
+
+    Route::prefix('roles')->middleware('admin')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+        Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/create', [RoleController::class, 'store'])->name('roles.store');
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+        Route::post('/edit/{id}', [RoleController::class, 'update'])->name('roles.update');
+        Route::get('/delete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+        Route::get('/restore/{id}', [RoleController::class, 'restore'])->name('roles.restore');
+    });
+
     Route::prefix('sessions')->group(function () {
 
         Route::get('/{type?}', [MeetingController::class, 'index'])->name('meetings.index');
@@ -85,26 +103,10 @@ use App\Http\Controllers\Populates\AllowedCampaignController;
         Route::post('/mark-complete/{id}', [MeetingController::class, 'markComplete'])->name('meetings.complete.submit');
 
     });
-/*    
-    
-
-
-
-    Route::prefix('roles')->middleware('admin')->group(function () {
-        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
-        Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
-        Route::post('/create', [RoleController::class, 'store'])->name('roles.store');
-        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
-        Route::post('/edit/{id}', [RoleController::class, 'update'])->name('roles.update');
-        Route::get('/delete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
-        Route::get('/restore/{id}', [RoleController::class, 'restore'])->name('roles.restore');
-    }); */
-
-/*      */
 
 
     // request session
-/*     Route::prefix('session-requests')->group(function () {
+    Route::prefix('session-requests')->group(function () {
         Route::get('/', [MeetingRequestController::class, 'index'])->name('meeting-requests.index');
         Route::get('/create', [MeetingRequestController::class, 'create'])->name('meeting-requests.create');
         Route::post('/create', [MeetingRequestController::class, 'store'])->name('meeting-requests.store');
@@ -114,10 +116,10 @@ use App\Http\Controllers\Populates\AllowedCampaignController;
         Route::get('/restore/{id}', [MeetingRequestController::class, 'restore'])->name('meeting-requests.restore');
 
         Route::get('/reject/{id}', [MeetingRequestController::class, 'reject'])->name('meeting-requests.reject');
-    }); */
+    });
 
     // request session
-/*     Route::prefix('session-reviews')->group(function () {
+    Route::prefix('session-reviews')->group(function () {
         Route::post('/create/{meeting_id}', [MeetingReviewController::class, 'store'])->name('meeting-reviews.store');
         Route::get('/edit/{id}', [MeetingReviewController::class, 'edit'])->name('meeting-reviews.edit');
         Route::post('/edit/{id}', [MeetingReviewController::class, 'update'])->name('meeting-reviews.update');
@@ -130,11 +132,22 @@ use App\Http\Controllers\Populates\AllowedCampaignController;
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
         Route::post('/edit/{id}', [UserController::class, 'update'])->name('users.update');
-    }); */
-/* }); */
+    });
+
+    Route::get('get-campaign-users/{campaign_id}', [UserController::class, 'campaignUsers'])->name('campaign-users');
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/test', [HomeController::class, 'test'])->name('test');
+
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+});
+
+
 // unsecure routes
-/* Route::middleware('guest')->group(function () {
+Route::middleware('guest')->group(function () {
 
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-}); */
+});

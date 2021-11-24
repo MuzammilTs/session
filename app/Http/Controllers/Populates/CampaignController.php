@@ -19,9 +19,10 @@ class CampaignController extends Controller
      */
     public function index(Request $request)
     {
+        // $user = auth()->user()->id;
         $query = new Campaign;
 
-        $query = $this->search($query, $request);
+        // $query = $this->search($query, $request);
 
         $query = $query->sortable(['id', 'desc']);
 
@@ -56,7 +57,7 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        return view('campaign.create');
+        return response()->json(["status" => "success", "error" => false,'message'=>"campaigns"],200);
     }
 
     /**

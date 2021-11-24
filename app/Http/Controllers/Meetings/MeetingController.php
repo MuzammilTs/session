@@ -139,7 +139,7 @@ class MeetingController extends Controller
             }
         }
 
-        return $query;
+        return response()->json(["status" => "success", "error" => false,"data" => $query],200);
     }
 
     /**
@@ -150,9 +150,9 @@ class MeetingController extends Controller
     public function create($type = 1, $meeting_request_id = NULL, $meeting_request_user_id = NULL)
     {
 
-        $this->checkPermission($type, "create");
+/*         $this->checkPermission($type, "create");
 
-        $campaign_id = Auth::user()->campaign_id;
+        $campaign_id = Auth::user()->campaign_id; */
 
         $reasons = Reason::orderBy('id', 'ASC')->get();
         $users = User::where('id', '>', 1)->orderBy('id', 'ASC')->get();
@@ -161,7 +161,7 @@ class MeetingController extends Controller
 
         $type = MeetingType::find($type);
 
-        return view('meetings.create')->with(compact('reasons', 'users', 'type', 'associates', 'meeting_request_id', 'meeting_request_user_id'));
+        return response()->json(["status" => "success", "error" => false,"data" => $query],200);
     }
 
     /**
@@ -173,9 +173,9 @@ class MeetingController extends Controller
     public function store(Request $request, $meeting_type_id = 1, $meeting_request_id = NULL, $meeting_request_user_id = NULL)
     {
 
-        $campaign_id = Auth::user()->campaign_id;
+        /* $campaign_id = Auth::user()->campaign_id;
 
-        $this->checkPermission($meeting_type_id, "create");
+        $this->checkPermission($meeting_type_id, "create"); */
 
         $rules = [
             'reason_id' => 'required',
